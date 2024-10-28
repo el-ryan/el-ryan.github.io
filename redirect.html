@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to Telegram...</title>
+  <script>
+    // Helper function to detect if the user is on mobile
+    function isMobileDevice() {
+      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    }
+
+    // Redirect logic based on platform
+    function redirectToTelegram() {
+      const botLink = "https://t.me/transformational_integration_bot";
+      const webLink = "https://web.telegram.org/k/#@transformational_integration_bot";
+      const qrLoginLink = "https://web.telegram.org/z/";
+      const appLink = "tg://resolve?domain=transformational_integration_bot";
+      const appStoreLink = "https://telegram.org/dl";
+
+      if (isMobileDevice()) {
+        // On Mobile: Try to open Telegram App
+        window.location.href = appLink;
+
+        // Fallback to App Store if the app is not installed
+        setTimeout(() => {
+          window.location.href = appStoreLink;
+        }, 500); // Adjust delay if necessary
+      } else {
+        // On Desktop: Try Telegram Web first
+        window.location.href = webLink;
+
+        // Provide a fallback message after 2 seconds if Telegram Web login fails
+        setTimeout(() => {
+          document.getElementById('fallback').style.display = 'block';
+        }, 2000);
+      }
+    }
+
+    // Run the redirection logic when the page loads
+    window.onload = redirectToTelegram;
+  </script>
+  <style>
+    #fallback {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>Redirecting to Telegram...</h2>
+  <p>If you are not redirected automatically, <a id="manualLink" href="https://t.me/transformational_integration_bot">click here</a>.</p>
+
+  <div id="fallback">
+    <p>Having trouble? <a href="https://web.telegram.org/z/">Log in with QR Code</a> or <a href="https://telegram.org/dl">download the Telegram app</a>.</p>
+  </div>
+</body>
+</html>
